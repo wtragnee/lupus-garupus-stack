@@ -1,0 +1,3 @@
+[submodule "lupus-garupus-back"]
+	path = lupus-garupus-back
+	url = git@github.com:wtragnee/lupus-garupus-back.git
