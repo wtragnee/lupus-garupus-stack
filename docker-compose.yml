@@ -9,6 +9,10 @@ services:
       - "0.0.0.0:3030:3030"
     volumes:
       - ./lupus-garupus-back:/opt/lupus-garupus-back
+    links:
+      - mysql:lupus-garupus
+    depends_on:
+      - mysql
 
   lupus-garupus-front:
     build: ./lupus-garupus-front
@@ -19,3 +23,17 @@ services:
       - "0.0.0.0:3001:3000"
     volumes:
       - ./lupus-garupus-front:/opt/lupus-garupus-front
+
+  mysql:
+    image: mariadb
+    ports:
+      - 3306:3306
+    environment:
+      - "MYSQL_ROOT_PASSWORD=root_password"
+      - "MYSQL_DATABASE=lupus-garupus"
+      - "MYSQL_USER=duck"
+      - "MYSQL_PASSWORD=duck"
+      - "TZ=Europe/Paris"
+    volumes:
+      - .cache/mysql:/var/lib/mysql
+    command: mysqld --sql-mode="NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
